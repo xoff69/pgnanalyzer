@@ -120,7 +120,7 @@ def tendanceGame(allgames,player,config):
 def analyzeGame(allgames,player,config):
 
 	
-	engine = chess.engine.SimpleEngine.popen_uci("stockfish")
+	engine = chess.engine.SimpleEngine.popen_uci(config.get('Main', 'engine'))
 	BLUNDER_GAP=1.
 	ANALYSE_TIME=float(config.get('Main', 'analyzeTime'))
 	blancnbcoup=0
@@ -148,6 +148,7 @@ def analyzeGame(allgames,player,config):
 	except:
 		pass
 	for game in allgames:
+		print("game#",compteur)
 		compteur=compteur+1
 		scoreBlanc=0.
 		scoreNoir=0.
@@ -175,9 +176,10 @@ def analyzeGame(allgames,player,config):
 
 					
 		else:
+
 			for move in game.mainline_moves():
 				board.push(move)
-				
+				#print(move)								
 				if  board.is_game_over():
 					break
 				info = engine.analyse(board, chess.engine.Limit(time=ANALYSE_TIME))
@@ -393,11 +395,11 @@ def allFile(player,config):
 			plt.arrow(0, 0, 0.8, 0.8, head_width=0.05, head_length=0.1, fc='k', ec='k')		
 		pdf.savefig() 
 		plt.figure()
-		print ("ana",config.get('Main', 'analyseForBlunder'))
+
 		if config.get('Main', 'analyseForBlunder'):
+			print(">>>Analyzing blunder on games")           
 			labelsG = 'Victoires', 'Nulles', 'Defaites'
 			plt.title("Divers")
-			print ("ana",config.get('Main', 'analyseForBlunder'))
 			[x,y],hclef=analyzeGame(allgames,player,config)
 			#en vrai les hclef values pour les blancs ou les noirs
 			arrayblanc=[]
@@ -411,7 +413,7 @@ def allFile(player,config):
     
     
 			plt.hist(arrayblanc,  bins =10)
-			plt.title("Erreurs avec les blancs")
+			plt.title("Errors distribution with white")
 			plt.axis('off')
     		
 			plt.xlabel("Numero coup")	  
@@ -424,16 +426,17 @@ def allFile(player,config):
     		
 			plt.xlabel("Numero coup")	  
 			plt.ylabel("#parties")
-			plt.title("Erreurs avec les noirs")
+			plt.title("Errors distribution with black")
 			pdf.savefig() 
 			plt.figure()
-			messtats=[["Nombre de coups par partie",nbcoupmoyen(allgames)],["blunder moyen blanc",x],["blunder moyen noir",y]]
+			messtats=[["Moves by games",truncate(nbcoupmoyen(allgames),2)],["Blunder after with white",truncate(x,2)],["Blunder after with black",truncate(y,2)]]
 			plt.axis('tight')
 			plt.axis('off')
 			collabel=("Mesures", "Resultats")
 			plt.table(cellText=messtats,colLabels=collabel,loc='center')
 			pdf.savefig() 
 			plt.figure()
+			print("<<<Analyzing blunder on games")          
 		plt.close()
 		print("Generation OK: "+player+'.pdf')
 
