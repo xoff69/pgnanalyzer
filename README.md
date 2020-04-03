@@ -2,6 +2,20 @@
 
 Python tool to analyze chess at PGN Format.
 
+
+
+#### Author
+- [Christophe PICHON] https://www.linkedin.com/in/christophe-pichon-25003b48/
+Comments, suggestions and improvements are welcome and appreciated.
+
+
+#### License
+
+`AD` is licensed under the [GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007" license](./LICENSE.md).
+
+#### Installation
+
 Dependencies
 You will need a UCI chess engine for analysis. stockfish is the default.https://stockfishchess.org/ 
 and https://anaconda.org/hcc/stockfish
@@ -27,9 +41,13 @@ This tool needs the followings libs
  - improve table presentation
  - opening determination
  - remove graphs from console
- 
- 
- Legal
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
+
+#### Contributing
+
+There are many ways to contribute to this package:
+
+- Report an issue if you encounter some odd behavior, or if you have suggestions to improve the package.
+- Contribute with code addressing some open issues, that add new functionality or that improve the performance.
+- When contributing with code, add docstrings and comments, so others may understand the methods implemented.
+- Contribute by updating and improving the documentation.
